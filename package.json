@@ -1,7 +1,16 @@
 {
   "name": "hello-tui",
-  "module": "index.ts",
   "type": "module",
+  "main": "src/main.ts",
+  "binary":{
+    "napi_versions":[4]
+  },
+  "scripts": {
+    "build:addon":"cmake-js compile --out=build",
+    "build:addon:debug":"cmake-js compile --debug --out=build",
+    "dev":"bun run src/main.ts",
+    "start": "bun run build:addon && bun run src/main.ts"
+  },
   "private": true,
   "devDependencies": {
     "@types/bun": "latest"
@@ -10,7 +19,7 @@
     "typescript": "^5"
   },
   "dependencies": {
-    "@opentui/core": "^0.2.14",
+    "@opentui/core": "latest",
     "node-addon-api": "^8.7.0"
   }
 }
