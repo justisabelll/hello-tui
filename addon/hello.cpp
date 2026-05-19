@@ -38,7 +38,7 @@ Napi::Value GetGreeting(const Napi::CallbackInfo &info)
     std::string greeting = "Hello from C++, " + name + "!";
 
     // the env is is needed so the runtime can track the lifetime of the returned value, and free it when no longer needed
-    return Napi::String::New(env,greeting); 
+    return Napi::String::New(env, greeting); 
 }
 
 // increments the frame count and returns the new value
@@ -51,6 +51,14 @@ Napi::Value TickFrame(const Napi::CallbackInfo& info){
     // use Int32Value(), DoubleValue(), etc. to go the other direction
     // (JS Number → C++ type) when reading arguments.
     return Napi::Number::New(env, s_frame_count);
+}
+
+Napi::Value ResetFrames(const Napi::CallbackInfo& info){
+    Napi::Env env = info.Env();
+
+    s_frame_count = 0;
+
+    return env.Undefined();
 }
 
 // this func is called once when the addon is loaded with require
@@ -71,6 +79,10 @@ Napi::Object Init(Napi::Env env, Napi::Object exports){
         Napi::Function::New(env,TickFrame)
     );
 
+    exports.Set(
+        Napi::String::New(env, "resetFrames"),
+        Napi::Function::New(env, ResetFrames)
+    );
 
     return exports;
 }
