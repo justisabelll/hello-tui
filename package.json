@@ -1,0 +1,16 @@
+{
+  "name": "hello-tui",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@opentui/core": "^0.2.14",
+    "node-addon-api": "^8.7.0"
+  }
+}
